@@ -2411,7 +2411,7 @@ document.getElementById('polaroid-file-input').addEventListener('change', functi
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      const maxDim = 1000;
+      const maxDim = 450;
       let width = img.width;
       let height = img.height;
       if (width > height) {
@@ -2429,7 +2429,7 @@ document.getElementById('polaroid-file-input').addEventListener('change', functi
       canvas.width = width;
       canvas.height = height;
       ctx.drawImage(img, 0, 0, width, height);
-      uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.88);
+      uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.70);
       document.getElementById('polaroid-url-input').value = '';
     };
     img.src = event.target.result;
