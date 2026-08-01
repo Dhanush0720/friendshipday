@@ -54,6 +54,21 @@
     --accent: #FBBF24;
   }
 
+  body.theme-boys {
+    --bg-gradient: linear-gradient(135deg, #E0F2FE 0%, #F0FDFA 50%, #CFFAFE 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-border: rgba(255, 255, 255, 0.6);
+    --primary: #0EA5E9;
+    --primary-hover: #0284C7;
+    --secondary: #10B981;
+    --text: #0F172A;
+    --text-muted: #475569;
+    --envelope-bg: #E0F2FE;
+    --envelope-flap-bg: #38BDF8;
+    --envelope-pocket-bg: #0EA5E9;
+    --accent: #14B8A6;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -142,6 +157,7 @@
   .theme-pill.sunset { background: #FF7E7E; }
   .theme-pill.lilac { background: #C9A7E8; }
   .theme-pill.midnight { background: #1E1B4B; }
+  .theme-pill.boys { background: #0EA5E9; }
 
   .header-btn {
     background: none;
@@ -1384,6 +1400,7 @@
       <button class="theme-pill sunset active" onclick="setTheme('sunset')"></button>
       <button class="theme-pill lilac" onclick="setTheme('lilac')"></button>
       <button class="theme-pill midnight" onclick="setTheme('midnight')"></button>
+      <button class="theme-pill boys" onclick="setTheme('boys')" title="Sporty Ocean"></button>
     </div>
     <button id="mute-toggle" class="header-btn" title="Toggle sound">
       <!-- speaker icon svg -->
@@ -1514,7 +1531,7 @@
           <canvas id="scratch-canvas" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; cursor: pointer; z-index:10; border-radius: 6px;"></canvas>
         </div>
         <br>
-        Love, <input type="text" class="letter-input-signoff" id="letter-sender-name" placeholder="Your Name" value="Your Bestie" maxlength="20" oninput="updateLetterText()"><span id="letter-sender-name-static" style="display:none;"></span> 🌸
+        Love, <input type="text" class="letter-input-signoff" id="letter-sender-name" placeholder="Your Name" value="Your Bestie" maxlength="20" oninput="updateLetterText()"><span id="letter-sender-name-static" style="display:none;"></span> <span id="letter-signoff-emoji">🌸</span>
       </div>
     </div>
     <div class="letter-builder-aside" id="letter-editor-toolbar">
@@ -1665,6 +1682,7 @@
         <option value="sunset">Sunset Glow 🌅</option>
         <option value="lilac">Sweet Lilac 🌸</option>
         <option value="midnight">Cosmic Midnight 🌌</option>
+        <option value="boys">Sporty Ocean ⚡</option>
         <option value="minimalist">Minimalist White 🤍</option>
       </select>
     </div>
@@ -2107,6 +2125,36 @@ function setTheme(name) {
   appState.theme = name;
   autoSaveState();
   
+  // Dynamic Emoji Swapping based on Theme
+  const themeMeta = {
+    sunset: { tagEmoji: '🌅', heartsEmoji: '💛 🌅 🧡 🩵 ☀️', stampEmoji: '🌅', footerEmoji: '✨', letterEmoji: '💛' },
+    lilac: { tagEmoji: '🌸', heartsEmoji: '💛 🌸 💜 🩵 🌼', stampEmoji: '🌸', footerEmoji: '🌸', letterEmoji: '🌸' },
+    midnight: { tagEmoji: '🌌', heartsEmoji: '⭐ 🌌 💜 🩵 ✨', stampEmoji: '🪐', footerEmoji: '✨', letterEmoji: '✨' },
+    boys: { tagEmoji: '⚡', heartsEmoji: '🤘 ⚡ 💙 🩵 🛹', stampEmoji: '🔥', footerEmoji: '⚡', letterEmoji: '⚡' }
+  };
+  const meta = themeMeta[name] || themeMeta.sunset;
+  
+  const heroTag = document.querySelector('.hero-tag');
+  if (heroTag) {
+    heroTag.innerHTML = `${meta.tagEmoji} First Sunday of August &nbsp;·&nbsp; Friendship Day`;
+  }
+  const heroHearts = document.querySelector('.hero-hearts');
+  if (heroHearts) {
+    heroHearts.textContent = meta.heartsEmoji;
+  }
+  const stamp = document.querySelector('.preview-stamp');
+  if (stamp) {
+    stamp.textContent = meta.stampEmoji;
+  }
+  const footer = document.querySelector('footer');
+  if (footer) {
+    footer.innerHTML = `Made with 💛 just for your bestie &nbsp;·&nbsp; Happy Friendship Day ${meta.footerEmoji}`;
+  }
+  const letterEmoji = document.getElementById('letter-signoff-emoji');
+  if (letterEmoji) {
+    letterEmoji.textContent = meta.letterEmoji;
+  }
+  
   // Highlight active theme pill
   document.querySelectorAll('.theme-pill').forEach(btn => {
     btn.classList.remove('active');
@@ -2172,7 +2220,10 @@ class Particle {
       sparkle: ['#C9A7E8', '#A8DFBE', '#A8D8EA', '#FCE7F3'],
       star: ['#F59E0B', '#3B82F6', '#60A5FA', '#FBBF24']
     };
-    const cList = colors[this.type] || colors.heart;
+    let cList = colors[this.type] || colors.heart;
+    if (this.type === 'star' && appState.theme === 'boys') {
+      cList = ['#0EA5E9', '#10B981', '#14B8A6', '#38BDF8'];
+    }
     this.color = cList[Math.floor(Math.random() * cList.length)];
   }
   update() {
@@ -2222,6 +2273,7 @@ window.addEventListener('mousemove', (e) => {
   let type = 'heart';
   if (appState.theme === 'lilac') type = 'sparkle';
   if (appState.theme === 'midnight') type = 'star';
+  if (appState.theme === 'boys') type = 'star';
   if (Math.random() < 0.25) {
     particles.push(new Particle(e.clientX, e.clientY, type));
   }
@@ -2915,6 +2967,7 @@ function generateStoryImage() {
     sunset: { start: '#FFF5E4', middle: '#FFE3E3', end: '#FFD1D1', text: '#4A3E3D', primary: '#FF7E7E', isMinimal: false, isDark: false },
     lilac: { start: '#F3E8FF', middle: '#E0E7FF', end: '#FCE7F3', text: '#3B2E4A', primary: '#9333EA', isMinimal: false, isDark: false },
     midnight: { start: '#0B0F19', middle: '#1E1B4B', end: '#0F172A', text: '#F8FAFC', primary: '#F59E0B', isMinimal: false, isDark: true },
+    boys: { start: '#E0F2FE', middle: '#F0FDFA', end: '#CFFAFE', text: '#0F172A', primary: '#0EA5E9', isMinimal: false, isDark: false },
     minimalist: { start: '#F8FAFC', middle: '#F8FAFC', end: '#F1F5F9', text: '#1E293B', primary: '#0F172A', isMinimal: true, isDark: false }
   };
   const theme = themes[storyThemeName] || themes.sunset;
