@@ -1655,6 +1655,17 @@
       </div>
     </div>
     
+    <div class="form-group" style="margin-top: 16px; text-align: left;">
+      <label>Instagram Story Image Style</label>
+      <select class="form-control" id="story-theme-select" style="font-size: 14px; padding: 10px; width: 100%; border-radius: 10px; background: var(--bg); border: 1px solid var(--border); color: var(--text); outline: none;">
+        <option value="default">Match Card Theme 🎨</option>
+        <option value="sunset">Sunset Glow 🌅</option>
+        <option value="lilac">Sweet Lilac 🌸</option>
+        <option value="midnight">Cosmic Midnight 🌌</option>
+        <option value="minimalist">Minimalist White 🤍</option>
+      </select>
+    </div>
+    
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
       <a id="share-wa-btn" class="btn" style="background: #25D366; color: white; justify-content: center; text-decoration: none; font-weight: 700; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); grid-column: span 2;" target="_blank">
         Share on WhatsApp 🟢
@@ -2400,7 +2411,7 @@ document.getElementById('polaroid-file-input').addEventListener('change', functi
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      const maxDim = 600;
+      const maxDim = 1000;
       let width = img.width;
       let height = img.height;
       if (width > height) {
@@ -2418,7 +2429,7 @@ document.getElementById('polaroid-file-input').addEventListener('change', functi
       canvas.width = width;
       canvas.height = height;
       ctx.drawImage(img, 0, 0, width, height);
-      uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.82);
+      uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.88);
       document.getElementById('polaroid-url-input').value = '';
     };
     img.src = event.target.result;
@@ -2886,6 +2897,11 @@ function generateStoryImage() {
   // Find the first memory that has a custom image uploaded from device/mobile
   const customMem = appState.memories.find(m => m.imgUrl);
   
+  let storyThemeName = document.getElementById('story-theme-select').value;
+  if (storyThemeName === 'default') {
+    storyThemeName = appState.theme || 'sunset';
+  }
+  
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
   canvas.height = 1920;
@@ -2893,16 +2909,18 @@ function generateStoryImage() {
   
   // Theme gradients
   const themes = {
-    sunset: { start: '#FFF5E4', middle: '#FFE3E3', end: '#FFD1D1', text: '#4A3E3D', primary: '#FF7E7E' },
-    lilac: { start: '#F3E8FF', middle: '#E0E7FF', end: '#FCE7F3', text: '#3B2E4A', primary: '#9333EA' },
-    midnight: { start: '#0B0F19', middle: '#1E1B4B', end: '#0F172A', text: '#F8FAFC', primary: '#F59E0B' }
+    sunset: { start: '#FFF5E4', middle: '#FFE3E3', end: '#FFD1D1', text: '#4A3E3D', primary: '#FF7E7E', isMinimal: false, isDark: false },
+    lilac: { start: '#F3E8FF', middle: '#E0E7FF', end: '#FCE7F3', text: '#3B2E4A', primary: '#9333EA', isMinimal: false, isDark: false },
+    midnight: { start: '#0B0F19', middle: '#1E1B4B', end: '#0F172A', text: '#F8FAFC', primary: '#F59E0B', isMinimal: false, isDark: true },
+    minimalist: { start: '#F8FAFC', middle: '#F8FAFC', end: '#F1F5F9', text: '#1E293B', primary: '#0F172A', isMinimal: true, isDark: false }
   };
-  const theme = themes[appState.theme] || themes.sunset;
+  const theme = themes[storyThemeName] || themes.sunset;
   
+  // Center the Polaroid card perfectly
   const pW = 800;
   const pH = 1000;
   const pX = (1080 - pW) / 2;
-  const pY = (1920 - pH) / 2 - 100;
+  const pY = (1920 - pH) / 2; 
   
   const imgMargin = 60;
   const imgW = pW - imgMargin * 2;
@@ -2911,7 +2929,7 @@ function generateStoryImage() {
   const imgY = pY + imgMargin;
   
   const finalizeAndDownload = () => {
-    // Polaroid Caption
+    // Polaroid Caption (Handwritten)
     ctx.fillStyle = theme.text;
     ctx.font = 'bold 70px "Caveat", cursive, sans-serif';
     ctx.textAlign = 'center';
@@ -2924,14 +2942,6 @@ function generateStoryImage() {
     ctx.fillStyle = theme.text;
     ctx.font = 'bold 110px "Playfair Display", serif, sans-serif';
     ctx.fillText('Friendship Day!', 1080 / 2, pY - 70);
-    
-    // Footer text
-    ctx.fillStyle = theme.text;
-    ctx.font = 'bold 45px "Quicksand", sans-serif';
-    ctx.fillText('🔗 Click/Scan Link to Open Interactive Card', 1080 / 2, pY + pH + 120);
-    ctx.font = '35px "Quicksand", sans-serif';
-    ctx.fillStyle = appState.theme === 'midnight' ? '#94A3B8' : '#8A7270';
-    ctx.fillText('Created with 💛 just for you', 1080 / 2, pY + pH + 190);
     
     // Get image source URL
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
@@ -2963,30 +2973,51 @@ function generateStoryImage() {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, 1080, 1920);
   
-  // Draw decorative circles
-  ctx.fillStyle = theme.primary;
-  ctx.globalAlpha = 0.15;
-  ctx.beginPath();
-  ctx.arc(150, 200, 300, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(930, 1720, 400, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = 1.0;
+  // Draw decorative circles (bypass for minimalist)
+  if (!theme.isMinimal) {
+    ctx.fillStyle = theme.primary;
+    ctx.globalAlpha = 0.15;
+    ctx.beginPath();
+    ctx.arc(150, 200, 300, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(930, 1720, 400, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1.0;
+  }
   
-  // Draw Polaroid Frame shadow
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-  ctx.shadowBlur = 30;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 15;
+  // Draw Polaroid Frame shadow (bypass or make extremely subtle for minimalist)
+  if (!theme.isMinimal) {
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 15;
+  } else {
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 5;
+  }
   
-  ctx.fillStyle = appState.theme === 'midnight' ? '#1E293B' : '#FFFFFF';
+  ctx.fillStyle = theme.isDark ? '#1E293B' : '#FFFFFF';
   ctx.fillRect(pX, pY, pW, pH);
   ctx.shadowColor = 'transparent';
   
+  // If minimalist, draw a thin elegant border around the polaroid
+  if (theme.isMinimal) {
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(pX, pY, pW, pH);
+  }
+  
   // Polaroid Inner photo area background
-  ctx.fillStyle = appState.theme === 'midnight' ? '#0F172A' : '#F7FAFC';
+  ctx.fillStyle = theme.isDark ? '#0F172A' : '#F7FAFC';
   ctx.fillRect(imgX, imgY, imgW, imgH);
+  
+  // Draw light border around photo area
+  ctx.strokeStyle = theme.isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(imgX, imgY, imgW, imgH);
   
   if (customMem && customMem.imgUrl) {
     // If a custom image exists, draw it!
