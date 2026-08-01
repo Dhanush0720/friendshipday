@@ -2478,21 +2478,35 @@ function saveCustomQuiz() {
   SoundFX.play('chime');
 }
 
-// ─── Card Sharing Generator ───
 function shareCard() {
   try {
     const hashData = encodeState(appState);
     const shareUrl = `${window.location.origin}${window.location.pathname}#card=${hashData}`;
     
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      showToast();
-      SoundFX.play('chime');
-    }).catch(err => {
-      alert("Please copy the URL manually to share:\n" + shareUrl);
-    });
+    if (navigator.share) {
+      navigator.share({
+        title: 'Happy Friendship Day 💛',
+        text: 'I created a special Friendship Day card for you! 💌',
+        url: shareUrl
+      }).catch(err => {
+        console.log("Native share canceled or failed, using copy fallback.", err);
+        copyToClipboardFallback(shareUrl);
+      });
+    } else {
+      copyToClipboardFallback(shareUrl);
+    }
   } catch (e) {
     console.error("Sharing failed", e);
   }
+}
+
+function copyToClipboardFallback(shareUrl) {
+  navigator.clipboard.writeText(shareUrl).then(() => {
+    showToast();
+    SoundFX.play('chime');
+  }).catch(err => {
+    alert("Please copy the URL manually to share:\n" + shareUrl);
+  });
 }
 
 function showToast() {
