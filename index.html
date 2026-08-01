@@ -339,6 +339,52 @@
     border-color: rgba(255,255,255,0.08);
   }
 
+  .clothesline-cord {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    background: linear-gradient(to bottom, #A1887F, #5D4037);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    z-index: 2;
+  }
+
+  .polaroid-sway-container {
+    width: 100%;
+    height: 100%;
+    transform-origin: top center;
+    animation: sway 5s ease-in-out infinite alternate;
+  }
+
+  @keyframes sway {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
+  }
+
+  .clothespin {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 22px;
+    background: #D7CCC8;
+    border-radius: 2px;
+    border: 1px solid #BCAAA4;
+    z-index: 15;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }
+  .clothespin::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 1px;
+    right: 1px;
+    height: 2px;
+    background: #90A4AE;
+  }
+
   .polaroid-wrapper {
     position: absolute;
     width: 180px;
@@ -1205,6 +1251,111 @@
     }
   }
 
+  /* Friendship Bracelet Section */
+  #bracelet-section {
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .bracelet-container {
+    width: 100%;
+    max-width: 600px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px dashed var(--card-border);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.02), 0 8px 24px rgba(0,0,0,0.04);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 20px;
+  }
+  body.theme-midnight .bracelet-container {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .bracelet-string {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+    height: 60px;
+    white-space: nowrap;
+  }
+  .bracelet-string::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    height: 3px;
+    background: #E2E8F0;
+    z-index: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  body.theme-midnight .bracelet-string::before {
+    background: #475569;
+  }
+  
+  /* Glossy 3D Beads */
+  .bead {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15), inset -2px -2px 6px rgba(0,0,0,0.25), inset 2px 2px 6px rgba(255,255,255,0.6);
+    transition: transform 0.2s, filter 0.2s;
+    cursor: pointer;
+  }
+  .bead:hover {
+    transform: scale(1.25) translateY(-3px);
+    filter: brightness(1.1);
+  }
+  
+  /* 3D Glossy bead colors */
+  .bead.bead-pink { background: radial-gradient(circle at 35% 35%, #FFA4B4, #E91E63); }
+  .bead.bead-blue { background: radial-gradient(circle at 35% 35%, #90CAF9, #1E88E5); }
+  .bead.bead-purple { background: radial-gradient(circle at 35% 35%, #CE93D8, #8E24AA); }
+  .bead.bead-yellow { background: radial-gradient(circle at 35% 35%, #FFF59D, #FBC02D); }
+  .bead.bead-green { background: radial-gradient(circle at 35% 35%, #A5D6A7, #43A047); }
+  .bead.bead-orange { background: radial-gradient(circle at 35% 35%, #FFCC80, #F57C00); }
+  .bead.bead-mint { background: radial-gradient(circle at 35% 35%, #A5F2E3, #00BFA5); }
+  
+  .bead.bead-star {
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 24px;
+    height: 24px;
+  }
+  .bead.bead-heart {
+    background: radial-gradient(circle at 35% 35%, #FF8A80, #D50000);
+    width: 24px;
+    height: 22px;
+    clip-path: path('M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z');
+    transform: scale(0.9);
+  }
+  .bead.bead-heart:hover {
+    transform: scale(1.1) translateY(-3px);
+  }
+  
+  /* Letter bead style */
+  .bead.bead-letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background: #FFFDF9;
+    border: 1.5px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+    color: #2D3748;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1), inset 0 -2px 3px rgba(0,0,0,0.1), inset 0 2px 3px rgba(255,255,255,0.8);
+  }
+  
   @media (max-width: 400px) {
     .header-logo span {
       display: none;
@@ -1268,6 +1419,8 @@
   <p class="desk-instructions" id="desk-hint">Drag the photos around! Click any card to read the secret note on the back.</p>
   <div class="desk-viewport" id="desk-viewport">
     <div class="desk-surface" id="desk-surface">
+      <div class="clothesline-cord" style="top: 70px;"></div>
+      <div class="clothesline-cord" style="top: 300px;"></div>
       <!-- Polaroid cards rendered dynamically -->
     </div>
   </div>
@@ -1281,6 +1434,18 @@
   <h2 class="section-label">Why You're My Person</h2>
   <div class="reasons-grid" id="reasons-grid">
     <!-- Reasons cards -->
+  </div>
+</section>
+
+<!-- BRACELET -->
+<section class="page" id="bracelet-section">
+  <h2 class="section-label">Our Friendship Bracelet</h2>
+  <p class="desk-instructions" style="margin-top: -12px;">Every bead holds a shared laugh, every knot a promise. 📿</p>
+  <div class="bracelet-container">
+    <div class="bracelet-string" id="bracelet-string-render"></div>
+  </div>
+  <div class="desk-btn-bar" id="bracelet-edit-bar">
+    <button class="btn btn-secondary" onclick="openBraceletBuilder()">Customize Bracelet 📿</button>
   </div>
 </section>
 
@@ -1341,7 +1506,10 @@
       <div class="letter-lines">
         Dear <input type="text" class="letter-input-name" id="letter-bf-name" placeholder="Bestie Name" value="Best Friend" maxlength="20" oninput="updateLetterText()"><span id="letter-bf-name-static" style="display:none; font-weight:700;"></span>,<br><br>
         <div id="letter-text-editable" contenteditable="true" oninput="updateLetterContentEditable()" style="outline:none; min-height:160px; white-space:pre-wrap;"></div>
-        <div id="letter-text-static" style="display:none; min-height:160px; white-space:pre-wrap;"></div>
+        <div style="position:relative; min-height:160px;">
+          <div id="letter-text-static" style="display:none; min-height:160px; white-space:pre-wrap; width:100%;"></div>
+          <canvas id="scratch-canvas" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; cursor: pointer; z-index:10; border-radius: 6px;"></canvas>
+        </div>
         <br>
         Love, <input type="text" class="letter-input-signoff" id="letter-sender-name" placeholder="Your Name" value="Your Bestie" maxlength="20" oninput="updateLetterText()"><span id="letter-sender-name-static" style="display:none;"></span> 🌸
       </div>
@@ -1431,6 +1599,96 @@
     <div class="letter-builder-aside">
       <button class="btn btn-secondary" onclick="resetQuizToDefault()">Reset Defaults</button>
       <button class="btn btn-primary" onclick="saveCustomQuiz()">Save & Apply</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bracelet Builder Modal -->
+<div class="modal-overlay" id="bracelet-builder-overlay">
+  <div class="modal-dialog">
+    <h3>Design Your Friendship Bracelet 📿</h3>
+    <div class="form-group">
+      <label>Bracelet Message (Max 12 letters)</label>
+      <input type="text" class="form-control" id="bracelet-text-input" placeholder="e.g. BESTIE" maxlength="12" style="text-transform: uppercase;">
+    </div>
+    <div class="form-group">
+      <label>Bead Theme Palette</label>
+      <select class="form-control" id="bracelet-theme-input" onchange="previewBraceletBuild()">
+        <option value="sunset">Sunset Glow (Orange, Pink, Yellow)</option>
+        <option value="pastel">Sweet Pastel (Pink, Mint, Lilac)</option>
+        <option value="neon">Neon Vibe (Lime, Pink, Yellow)</option>
+        <option value="ocean">Ocean Breeze (Blue, Teal, Mint)</option>
+        <option value="midnight">Cosmic Magic (Midnight, Purple, Pink)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Spacer Bead Style</label>
+      <select class="form-control" id="bracelet-spacer-input" onchange="previewBraceletBuild()">
+        <option value="round">Glossy Spheres 🔮</option>
+        <option value="hearts">Cute Hearts 💖</option>
+        <option value="stars">Magic Stars ⭐</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Preview</label>
+      <div class="bracelet-container" style="height: 80px; background: rgba(0,0,0,0.03); margin: 0 auto;">
+        <div class="bracelet-string" id="bracelet-preview-string"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeBraceletBuilder()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCustomBracelet()">Save & String 📿</button>
+    </div>
+  </div>
+</div>
+
+<!-- Share Modal -->
+<div class="modal-overlay" id="share-modal-overlay">
+  <div class="modal-dialog" style="max-width: 480px;">
+    <h3>Share Your Friendship Card 💌</h3>
+    
+    <div class="form-group" style="margin-top: 16px;">
+      <label>Your Custom Card Link</label>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" class="form-control" id="share-link-input" readonly style="flex-grow: 1; font-size: 13px;">
+        <button class="btn btn-primary" onclick="copyLinkFromModal()" style="padding: 10px 16px; border-radius: 12px; font-size: 14px; box-shadow: none;">Copy 📋</button>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+      <a id="share-wa-btn" class="btn" style="background: #25D366; color: white; justify-content: center; text-decoration: none; font-weight: 700; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); grid-column: span 2;" target="_blank">
+        Share on WhatsApp 🟢
+      </a>
+      <a id="share-tg-btn" class="btn" style="background: #0088cc; color: white; justify-content: center; text-decoration: none; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 136, 204, 0.25);" target="_blank">
+        Telegram 🔵
+      </a>
+      <a id="share-tw-btn" class="btn" style="background: #1a1a1a; color: white; justify-content: center; text-decoration: none; font-weight: 700; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);" target="_blank">
+        Twitter / X 🐦
+      </a>
+      <button class="btn" onclick="generateStoryImage()" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; justify-content: center; font-weight: 700; box-shadow: 0 4px 12px rgba(204, 35, 102, 0.25); grid-column: span 2;">
+        Download Instagram Story Image 📸
+      </button>
+      <button id="modal-native-share-btn" class="btn btn-secondary" style="justify-content: center; font-weight: 700; grid-column: span 2;" onclick="modalNativeShare()">
+        More Share Options 📤
+      </button>
+    </div>
+    
+    <div class="modal-actions" style="margin-top: 24px;">
+      <button class="btn btn-secondary" onclick="closeShareModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Story Image Preview Modal -->
+<div class="modal-overlay" id="story-preview-overlay" style="z-index: 1200;">
+  <div class="modal-dialog" style="max-width: 400px; text-align: center;">
+    <h3>Your Instagram Story Image 📸</h3>
+    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Press and hold the image below to save it to your Photos/Gallery! 💛</p>
+    <div style="background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; display: inline-block; width: 100%;">
+      <img id="story-preview-img" style="width: 100%; max-height: 45vh; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+    </div>
+    <div class="modal-actions" style="margin-top: 20px;">
+      <button class="btn btn-secondary" onclick="closeStoryPreview()">Close</button>
     </div>
   </div>
 </div>
@@ -1570,12 +1828,12 @@ const templates = {
 };
 
 const defaultMemories = [
-  { id: 1, emoji: '☕', bg: '#FFF3D6', caption: 'coffee runs', note: 'Remember that time we spilled iced coffee all over the car?', x: 40, y: 30, rotate: -4 },
-  { id: 2, emoji: '🎬', bg: '#FDEDF4', caption: 'movie nights', note: 'We still need to finish that movie series. No sleeping next time!', x: 260, y: 15, rotate: 3 },
-  { id: 3, emoji: '🛒', bg: '#EFF9F0', caption: 'grocery store chaos', note: 'Running through the aisles looking for that one specific ingredient.', x: 480, y: 45, rotate: -2 },
-  { id: 4, emoji: '🌙', bg: '#EEF0FF', caption: '2am phone calls', note: 'For when life gets a bit too heavy, or when we have silly gossip.', x: 80, y: 240, rotate: 2 },
-  { id: 5, emoji: '🍕', bg: '#FFF0F0', caption: 'pizza & secrets', note: 'Calories do not count when we are venting about life.', x: 300, y: 260, rotate: -3 },
-  { id: 6, emoji: '🌻', bg: '#FFFBE6', caption: 'sunny adventures', note: 'To many more roadtrips and exploring new places together.', x: 520, y: 230, rotate: 5 }
+  { id: 1, emoji: '☕', bg: '#FFF3D6', caption: 'coffee runs', note: 'Remember that time we spilled iced coffee all over the car?', x: 60, y: 55, rotate: -4 },
+  { id: 2, emoji: '🎬', bg: '#FDEDF4', caption: 'movie nights', note: 'We still need to finish that movie series. No sleeping next time!', x: 320, y: 55, rotate: 3 },
+  { id: 3, emoji: '🛒', bg: '#EFF9F0', caption: 'grocery store chaos', note: 'Running through the aisles looking for that one specific ingredient.', x: 580, y: 55, rotate: -2 },
+  { id: 4, emoji: '🌙', bg: '#EEF0FF', caption: '2am phone calls', note: 'For when life gets a bit too heavy, or when we have silly gossip.', x: 90, y: 285, rotate: 2 },
+  { id: 5, emoji: '🍕', bg: '#FFF0F0', caption: 'pizza & secrets', note: 'Calories do not count when we are venting about life.', x: 350, y: 285, rotate: -3 },
+  { id: 6, emoji: '🌻', bg: '#FFFBE6', caption: 'sunny adventures', note: 'To many more roadtrips and exploring new places together.', x: 610, y: 285, rotate: 5 }
 ];
 
 const defaultQuiz = [
@@ -1603,7 +1861,12 @@ let appState = {
   letterTemplate: 'sweet',
   letterText: templates.sweet,
   memories: JSON.parse(JSON.stringify(defaultMemories)),
-  quiz: JSON.parse(JSON.stringify(defaultQuiz))
+  quiz: JSON.parse(JSON.stringify(defaultQuiz)),
+  bracelet: {
+    text: 'BESTIE',
+    theme: 'pastel',
+    spacer: 'round'
+  }
 };
 
 let isReceiverMode = false;
@@ -1668,6 +1931,19 @@ function minimizeState(state) {
       };
     });
   }
+  
+  // Bracelet state
+  if (state.bracelet) {
+    const isDefault = state.bracelet.text === 'BESTIE' && state.bracelet.theme === 'pastel' && state.bracelet.spacer === 'round';
+    if (!isDefault) {
+      min.br = {
+        t: state.bracelet.text,
+        c: state.bracelet.theme,
+        s: state.bracelet.spacer
+      };
+    }
+  }
+  
   return min;
 }
 
@@ -1679,7 +1955,12 @@ function inflateState(min) {
     letterTemplate: min.lt || 'sweet',
     letterText: '',
     memories: [],
-    quiz: []
+    quiz: [],
+    bracelet: {
+      text: 'BESTIE',
+      theme: 'pastel',
+      spacer: 'round'
+    }
   };
   
   if (min.lx !== undefined) {
@@ -1733,6 +2014,14 @@ function inflateState(min) {
     state.quiz = JSON.parse(JSON.stringify(defaultQuiz));
   }
   
+  if (min.br) {
+    state.bracelet = {
+      text: min.br.t || 'BESTIE',
+      theme: min.br.c || 'pastel',
+      spacer: min.br.s || 'round'
+    };
+  }
+  
   return state;
 }
 
@@ -1777,7 +2066,12 @@ function decodeState(str) {
       letterTemplate: parsed.letterTemplate || 'sweet',
       letterText: parsed.letterText || templates.sweet,
       memories: parsed.memories || JSON.parse(JSON.stringify(defaultMemories)),
-      quiz: parsed.quiz || JSON.parse(JSON.stringify(defaultQuiz))
+      quiz: parsed.quiz || JSON.parse(JSON.stringify(defaultQuiz)),
+      bracelet: {
+        text: 'BESTIE',
+        theme: 'pastel',
+        spacer: 'round'
+      }
     };
   }
   return inflateState(parsed);
@@ -1939,7 +2233,12 @@ let currentRotation = 0;
 
 function renderDesk() {
   const desk = document.getElementById('desk-surface');
-  desk.innerHTML = '';
+  // Keep the cords!
+  const cordsHTML = `
+    <div class="clothesline-cord" style="top: 70px;"></div>
+    <div class="clothesline-cord" style="top: 300px;"></div>
+  `;
+  desk.innerHTML = cordsHTML;
   
   appState.memories.forEach(mem => {
     const wrap = document.createElement('div');
@@ -1968,17 +2267,23 @@ function renderDesk() {
       `;
     }
     
+    const delay = -(Math.random() * 5).toFixed(2);
+    const duration = (4 + Math.random() * 2).toFixed(2);
+    
     wrap.innerHTML = `
-      <div class="polaroid-card">
-        <div class="polaroid-front">
-          ${actionButtons}
-          <div class="polaroid-img-holder" style="${imageStyle}">
-            ${imageContent}
+      <div class="polaroid-sway-container" style="animation-delay: ${delay}s; animation-duration: ${duration}s;">
+        <div class="clothespin"></div>
+        <div class="polaroid-card">
+          <div class="polaroid-front">
+            ${actionButtons}
+            <div class="polaroid-img-holder" style="${imageStyle}">
+              ${imageContent}
+            </div>
+            <div class="polaroid-caption">${mem.caption}</div>
           </div>
-          <div class="polaroid-caption">${mem.caption}</div>
-        </div>
-        <div class="polaroid-back">
-          <div class="polaroid-note-display">${mem.note || "No custom note written. Click edit to add a memory!"}</div>
+          <div class="polaroid-back">
+            <div class="polaroid-note-display">${mem.note || "No custom note written. Click edit to add a memory!"}</div>
+          </div>
         </div>
       </div>
     `;
@@ -2305,6 +2610,7 @@ function renderReasons() {
 // ─── Quiz Section Player ───
 let quizIndex = 0;
 let quizScore = 0;
+let currentOptsWithIndex = [];
 
 function loadQuizQuestion() {
   const qData = appState.quiz[quizIndex];
@@ -2320,30 +2626,44 @@ function loadQuizQuestion() {
   const optBox = document.getElementById('quiz-options');
   optBox.innerHTML = '';
   
-  qData.opts.forEach((opt, idx) => {
+  // Create indexed options for shuffling
+  currentOptsWithIndex = qData.opts.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+  
+  // Shuffle options list
+  for (let i = currentOptsWithIndex.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [currentOptsWithIndex[i], currentOptsWithIndex[j]] = [currentOptsWithIndex[j], currentOptsWithIndex[i]];
+  }
+  
+  currentOptsWithIndex.forEach((optObj, idx) => {
     const btn = document.createElement('button');
     btn.className = 'quiz-opt';
-    btn.textContent = opt;
-    btn.addEventListener('click', () => handleQuizAnswer(idx, btn));
+    btn.textContent = optObj.text;
+    btn.addEventListener('click', () => handleQuizAnswer(optObj.originalIndex === qData.ans, btn, qData.ans));
     optBox.appendChild(btn);
   });
 }
 
-function handleQuizAnswer(answerIndex, btnElement) {
-  const qData = appState.quiz[quizIndex];
-  const options = document.getElementById('quiz-options').children;
+function handleQuizAnswer(isCorrect, btnElement, correctAnsIdx) {
+  const optBox = document.getElementById('quiz-options');
+  const options = optBox.children;
   
   // Disable all options
   Array.from(options).forEach(opt => opt.disabled = true);
   
-  if (answerIndex === qData.ans) {
+  if (isCorrect) {
     btnElement.classList.add('correct');
     quizScore++;
     showQuizFeedback('✅ You got it right! Besties forever! 🌟');
     SoundFX.play('chime');
   } else {
     btnElement.classList.add('wrong');
-    options[qData.ans].classList.add('correct');
+    // Highlight correct button
+    Array.from(options).forEach((optBtn, displayIdx) => {
+      if (currentOptsWithIndex[displayIdx].originalIndex === correctAnsIdx) {
+        optBtn.classList.add('correct');
+      }
+    });
     showQuizFeedback('❌ Aww, close! The true answer is highlighted.');
     SoundFX.play('buzzer');
   }
@@ -2362,18 +2682,34 @@ function showQuizFeedback(msg) {
 
 function showQuizResults() {
   const box = document.querySelector('.quiz-box');
-  const comment = quizScore >= 4 
-    ? '🏆 Unstoppable bond! You two are real twin souls.'
-    : quizScore >= 2
-      ? '🌟 Good job! You know each other quite well.'
-      : '💛 Almost! There is always more history to write together.';
+  let comment = '';
+  let badge = '';
+  let emoji = '';
+  
+  const scorePercent = Math.round((quizScore / appState.quiz.length) * 100);
+  
+  if (quizScore === appState.quiz.length) {
+    badge = 'Twin Souls ♾️';
+    comment = 'Unstoppable bond! You finish each other\'s sentences and know every little secret. You two are practically the same person! 💛';
+    emoji = '🏆';
+  } else if (quizScore >= 3) {
+    badge = 'Ride or Die 🚗';
+    comment = 'Incredibly in sync! You know each other\'s habits and stories inside out. True partners in crime! 🌟';
+    emoji = '✨';
+  } else {
+    badge = 'Chaos Duet 🤪';
+    comment = 'Double trouble! You might not agree on every trivia question, but that just means there is more history left to write together! 🍕';
+    emoji = '💛';
+  }
       
   box.innerHTML = `
     <div style="text-align:center; padding:10px 0;">
-      <div style="font-size:60px; margin-bottom:16px;">🎉</div>
-      <h3 style="font-family:'Playfair Display', serif; font-size:26px; color:var(--text); margin-bottom:12px;">Quiz Complete!</h3>
-      <div style="font-size:20px; font-weight:700; color:var(--primary); margin-bottom:16px;">Your Score: ${quizScore} / ${appState.quiz.length}</div>
-      <p style="color:var(--text-muted); font-size:15px; margin-bottom:24px;">${comment}</p>
+      <div style="font-size:60px; margin-bottom:16px; animation: wiggle 1s ease-in-out infinite alternate; display: inline-block;">${emoji}</div>
+      <h3 style="font-family:'Playfair Display', serif; font-size:26px; color:var(--text); margin-bottom:6px;">Quiz Complete!</h3>
+      <div style="font-size:16px; font-weight:700; color:var(--text-muted); margin-bottom:12px;">Friendship Compatibility:</div>
+      <div style="display:inline-block; background:var(--primary); color:white; padding:8px 24px; border-radius:50px; font-weight:700; font-size:18px; margin-bottom:16px; box-shadow: 0 4px 12px rgba(255, 126, 126, 0.3);">${badge}</div>
+      <div style="font-size:18px; font-weight:700; color:var(--text); margin-bottom:12px;">Your Score: ${quizScore} / ${appState.quiz.length} (${scorePercent}%)</div>
+      <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px; line-height:1.6; max-width:380px; margin-left:auto; margin-right:auto;">${comment}</p>
       <button class="btn btn-primary" onclick="restartQuiz()">Retry Quiz 🔄</button>
     </div>
   `;
@@ -2478,35 +2814,225 @@ function saveCustomQuiz() {
   SoundFX.play('chime');
 }
 
+// ─── Card Sharing Generator & Share Modal ───
+let generatedShareUrl = '';
+
 function shareCard() {
   try {
     const hashData = encodeState(appState);
-    const shareUrl = `${window.location.origin}${window.location.pathname}#card=${hashData}`;
+    generatedShareUrl = `${window.location.origin}${window.location.pathname}#card=${hashData}`;
     
+    // Set link input value
+    document.getElementById('share-link-input').value = generatedShareUrl;
+    
+    const shareText = `I made a special Friendship Day card for you! 💌 Check it out here: ${generatedShareUrl}`;
+    
+    // Set WhatsApp share href
+    document.getElementById('share-wa-btn').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+    
+    // Set Telegram share href
+    document.getElementById('share-tg-btn').href = `https://t.me/share/url?url=${encodeURIComponent(generatedShareUrl)}&text=${encodeURIComponent('I created a special Friendship Day card for you! 💌')}`;
+    
+    // Set Twitter / X share href
+    document.getElementById('share-tw-btn').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+    
+    // Check navigator.share support to toggle native share button
+    const nativeBtn = document.getElementById('modal-native-share-btn');
     if (navigator.share) {
-      navigator.share({
-        title: 'Happy Friendship Day 💛',
-        text: 'I created a special Friendship Day card for you! 💌',
-        url: shareUrl
-      }).catch(err => {
-        console.log("Native share canceled or failed, using copy fallback.", err);
-        copyToClipboardFallback(shareUrl);
-      });
+      nativeBtn.style.display = 'block';
     } else {
-      copyToClipboardFallback(shareUrl);
+      nativeBtn.style.display = 'none';
     }
+    
+    // Open Share Modal
+    document.getElementById('share-modal-overlay').classList.add('active');
+    
+    // Auto-copy to clipboard as a convenience
+    navigator.clipboard.writeText(generatedShareUrl).then(() => {
+      showToast();
+    }).catch(err => console.log("Auto-copy blocked: ", err));
+    
+    SoundFX.play('pop');
   } catch (e) {
     console.error("Sharing failed", e);
   }
 }
 
-function copyToClipboardFallback(shareUrl) {
-  navigator.clipboard.writeText(shareUrl).then(() => {
+function closeShareModal() {
+  document.getElementById('share-modal-overlay').classList.remove('active');
+}
+
+function copyLinkFromModal() {
+  const link = document.getElementById('share-link-input').value;
+  navigator.clipboard.writeText(link).then(() => {
     showToast();
     SoundFX.play('chime');
   }).catch(err => {
-    alert("Please copy the URL manually to share:\n" + shareUrl);
+    alert("Please copy the URL manually to share:\n" + link);
   });
+}
+
+function modalNativeShare() {
+  if (navigator.share && generatedShareUrl) {
+    navigator.share({
+      title: 'Happy Friendship Day 💛',
+      text: 'I created a special Friendship Day card for you! 💌',
+      url: generatedShareUrl
+    }).catch(err => console.log("Native share canceled:", err));
+  }
+}
+
+function generateStoryImage() {
+  // Find the first memory that has a custom image uploaded from device/mobile
+  const customMem = appState.memories.find(m => m.imgUrl);
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const ctx = canvas.getContext('2d');
+  
+  // Theme gradients
+  const themes = {
+    sunset: { start: '#FFF5E4', middle: '#FFE3E3', end: '#FFD1D1', text: '#4A3E3D', primary: '#FF7E7E' },
+    lilac: { start: '#F3E8FF', middle: '#E0E7FF', end: '#FCE7F3', text: '#3B2E4A', primary: '#9333EA' },
+    midnight: { start: '#0B0F19', middle: '#1E1B4B', end: '#0F172A', text: '#F8FAFC', primary: '#F59E0B' }
+  };
+  const theme = themes[appState.theme] || themes.sunset;
+  
+  const pW = 800;
+  const pH = 1000;
+  const pX = (1080 - pW) / 2;
+  const pY = (1920 - pH) / 2 - 100;
+  
+  const imgMargin = 60;
+  const imgW = pW - imgMargin * 2;
+  const imgH = imgW;
+  const imgX = pX + imgMargin;
+  const imgY = pY + imgMargin;
+  
+  const finalizeAndDownload = () => {
+    // Polaroid Caption
+    ctx.fillStyle = theme.text;
+    ctx.font = 'bold 70px "Caveat", cursive, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${appState.bfName} & ${appState.senderName}`, pX + pW / 2, pY + pH - 120);
+    
+    // Title on top
+    ctx.fillStyle = theme.primary;
+    ctx.font = 'bold 85px "Playfair Display", serif, sans-serif';
+    ctx.fillText('HAPPY', 1080 / 2, pY - 180);
+    ctx.fillStyle = theme.text;
+    ctx.font = 'bold 110px "Playfair Display", serif, sans-serif';
+    ctx.fillText('Friendship Day!', 1080 / 2, pY - 70);
+    
+    // Footer text
+    ctx.fillStyle = theme.text;
+    ctx.font = 'bold 45px "Quicksand", sans-serif';
+    ctx.fillText('🔗 Click/Scan Link to Open Interactive Card', 1080 / 2, pY + pH + 120);
+    ctx.font = '35px "Quicksand", sans-serif';
+    ctx.fillStyle = appState.theme === 'midnight' ? '#94A3B8' : '#8A7270';
+    ctx.fillText('Created with 💛 just for you', 1080 / 2, pY + pH + 190);
+    
+    // Get image source URL
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    
+    // 1. Display preview modal so mobile users can tap-and-hold save
+    document.getElementById('story-preview-img').src = dataUrl;
+    document.getElementById('story-preview-overlay').classList.add('active');
+    
+    // 2. Try desktop programmatic download
+    try {
+      const link = document.createElement('a');
+      link.download = `Friendship_Day_${appState.bfName}.jpg`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.log("Auto-download blocked, relying on manual save fallback.", err);
+    }
+    
+    SoundFX.play('chime');
+  };
+  
+  // Draw background gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, 1920);
+  grad.addColorStop(0, theme.start);
+  grad.addColorStop(0.5, theme.middle);
+  grad.addColorStop(1, theme.end);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1080, 1920);
+  
+  // Draw decorative circles
+  ctx.fillStyle = theme.primary;
+  ctx.globalAlpha = 0.15;
+  ctx.beginPath();
+  ctx.arc(150, 200, 300, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(930, 1720, 400, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1.0;
+  
+  // Draw Polaroid Frame shadow
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+  ctx.shadowBlur = 30;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 15;
+  
+  ctx.fillStyle = appState.theme === 'midnight' ? '#1E293B' : '#FFFFFF';
+  ctx.fillRect(pX, pY, pW, pH);
+  ctx.shadowColor = 'transparent';
+  
+  // Polaroid Inner photo area background
+  ctx.fillStyle = appState.theme === 'midnight' ? '#0F172A' : '#F7FAFC';
+  ctx.fillRect(imgX, imgY, imgW, imgH);
+  
+  if (customMem && customMem.imgUrl) {
+    // If a custom image exists, draw it!
+    const img = new Image();
+    img.onload = () => {
+      // Scale and crop the image to fit the square (Object-fit: cover equivalent)
+      const imgRatio = img.width / img.height;
+      let srcX = 0, srcY = 0, srcW = img.width, srcH = img.height;
+      
+      if (imgRatio > 1) {
+        // Wide image
+        srcW = img.height;
+        srcX = (img.width - img.height) / 2;
+      } else {
+        // Tall image
+        srcH = img.width;
+        srcY = (img.height - img.width) / 2;
+      }
+      
+      ctx.drawImage(img, srcX, srcY, srcW, srcH, imgX, imgY, imgW, imgH);
+      finalizeAndDownload();
+    };
+    img.onerror = () => {
+      console.warn("Failed to load custom image, falling back to camera emoji.");
+      ctx.font = '200px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('📸', imgX + imgW / 2, imgY + imgH / 2);
+      finalizeAndDownload();
+    };
+    img.src = customMem.imgUrl;
+  } else {
+    // If no custom image has been uploaded, alert the user and fallback to camera icon
+    alert("Tip: Upload a picture using your mobile in the 'Add a Memory' section first to include it in this card story! 📸");
+    
+    ctx.font = '200px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('📸', imgX + imgW / 2, imgY + imgH / 2);
+    
+    finalizeAndDownload();
+  }
+}
+
+function closeStoryPreview() {
+  document.getElementById('story-preview-overlay').classList.remove('active');
 }
 
 function showToast() {
@@ -2559,6 +3085,184 @@ function bigConfetti() {
   SoundFX.play('chime');
 }
 
+// ─── Friendship Bracelet Creator ───
+function renderBracelet() {
+  const container = document.getElementById('bracelet-string-render');
+  if (!container) return;
+  
+  if (!appState.bracelet) {
+    appState.bracelet = { text: 'BESTIE', theme: 'pastel', spacer: 'round' };
+  }
+  
+  container.innerHTML = generateBraceletBeadsHTML(appState.bracelet);
+}
+
+function generateBraceletBeadsHTML(braceletData) {
+  const txt = (braceletData.text || 'BESTIE').toUpperCase().replace(/[^A-Z]/g, '');
+  const spacer = braceletData.spacer || 'round';
+  const theme = braceletData.theme || 'pastel';
+  
+  const colorMap = {
+    sunset: ['pink', 'yellow', 'orange'],
+    pastel: ['pink', 'purple', 'mint'],
+    neon: ['pink', 'yellow', 'green'],
+    ocean: ['blue', 'green', 'purple'],
+    midnight: ['purple', 'blue', 'pink']
+  };
+  const colors = colorMap[theme] || ['pink', 'purple', 'yellow'];
+  
+  let html = '';
+  const numSpacers = 4;
+  
+  for (let i = 0; i < numSpacers; i++) {
+    const col = colors[i % colors.length];
+    if (spacer === 'hearts') {
+      html += `<div class="bead bead-heart"></div>`;
+    } else if (spacer === 'stars') {
+      html += `<div class="bead bead-star bead-${col}"></div>`;
+    } else {
+      html += `<div class="bead bead-${col}"></div>`;
+    }
+  }
+  
+  for (let i = 0; i < txt.length; i++) {
+    html += `<div class="bead bead-letter">${txt[i]}</div>`;
+  }
+  
+  for (let i = 0; i < numSpacers; i++) {
+    const col = colors[(i + numSpacers) % colors.length];
+    if (spacer === 'hearts') {
+      html += `<div class="bead bead-heart"></div>`;
+    } else if (spacer === 'stars') {
+      html += `<div class="bead bead-star bead-${col}"></div>`;
+    } else {
+      html += `<div class="bead bead-${col}"></div>`;
+    }
+  }
+  
+  return html;
+}
+
+function openBraceletBuilder() {
+  if (!appState.bracelet) {
+    appState.bracelet = { text: 'BESTIE', theme: 'pastel', spacer: 'round' };
+  }
+  document.getElementById('bracelet-text-input').value = appState.bracelet.text || 'BESTIE';
+  document.getElementById('bracelet-theme-input').value = appState.bracelet.theme || 'pastel';
+  document.getElementById('bracelet-spacer-input').value = appState.bracelet.spacer || 'round';
+  
+  previewBraceletBuild();
+  document.getElementById('bracelet-builder-overlay').classList.add('active');
+  SoundFX.play('pop');
+}
+
+function closeBraceletBuilder() {
+  document.getElementById('bracelet-builder-overlay').classList.remove('active');
+}
+
+function previewBraceletBuild() {
+  const text = document.getElementById('bracelet-text-input').value.trim() || 'BESTIE';
+  const theme = document.getElementById('bracelet-theme-input').value;
+  const spacer = document.getElementById('bracelet-spacer-input').value;
+  
+  const previewContainer = document.getElementById('bracelet-preview-string');
+  if (previewContainer) {
+    previewContainer.innerHTML = generateBraceletBeadsHTML({ text, theme, spacer });
+  }
+}
+
+function saveCustomBracelet() {
+  const text = document.getElementById('bracelet-text-input').value.trim().toUpperCase() || 'BESTIE';
+  const theme = document.getElementById('bracelet-theme-input').value;
+  const spacer = document.getElementById('bracelet-spacer-input').value;
+  
+  appState.bracelet = { text, theme, spacer };
+  autoSaveState();
+  renderBracelet();
+  closeBraceletBuilder();
+  SoundFX.play('chime');
+}
+
+// ─── Scratch Card Reveal System ───
+let scratchInitialized = false;
+function initScratchCard() {
+  const canvas = document.getElementById('scratch-canvas');
+  if (!canvas || scratchInitialized) return;
+  
+  const ctx = canvas.getContext('2d');
+  
+  const initCanvas = () => {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width || 300;
+    canvas.height = rect.height || 160;
+    
+    // Draw the gold scratch-off layer
+    ctx.fillStyle = '#E5C158';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw gold flakes texture
+    ctx.fillStyle = '#D4AF37';
+    for (let i = 0; i < 200; i++) {
+      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+    }
+    
+    // Add text stamp
+    ctx.font = '700 18px "Quicksand", sans-serif';
+    ctx.fillStyle = '#5A4614';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Scratch here to reveal 💛', canvas.width / 2, canvas.height / 2);
+  };
+  
+  setTimeout(initCanvas, 300);
+  
+  let isDrawing = false;
+  
+  const scratch = (e) => {
+    if (!isDrawing) return;
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.type.startsWith('touch') ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type.startsWith('touch') ? e.touches[0].clientY : e.clientY;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 16, 0, Math.PI * 2);
+    ctx.fill();
+    
+    checkScratchPercentage();
+  };
+  
+  const checkScratchPercentage = () => {
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imgData.data;
+    let transparent = 0;
+    for (let i = 3; i < pixels.length; i += 4) {
+      if (pixels[i] === 0) transparent++;
+    }
+    const percent = transparent / (pixels.length / 4);
+    if (percent > 0.45) {
+      canvas.style.transition = 'opacity 0.6s ease';
+      canvas.style.opacity = '0';
+      SoundFX.play('chime');
+      setTimeout(() => {
+        canvas.style.display = 'none';
+      }, 600);
+    }
+  };
+  
+  canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+  canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: true });
+  
+  window.addEventListener('mousemove', scratch);
+  window.addEventListener('touchmove', scratch, { passive: true });
+  window.addEventListener('mouseup', () => isDrawing = false);
+  window.addEventListener('touchend', () => isDrawing = false);
+  
+  scratchInitialized = true;
+}
+
 // ─── Page Initialization ───
 function initApp() {
   const hash = window.location.hash;
@@ -2574,6 +3278,11 @@ function initApp() {
       document.getElementById('desk-edit-bar').style.display = 'none';
       document.getElementById('quiz-edit-btn').style.display = 'none';
       document.getElementById('desk-hint').textContent = "Click on the cards to read the secret notes on the back!";
+      document.getElementById('bracelet-edit-bar').style.display = 'none';
+      
+      // Show scratch canvas and initialize it
+      document.getElementById('scratch-canvas').style.display = 'block';
+      initScratchCard();
       
       // Change Share Card button in header to Make Your Own
       const shareBtn = document.getElementById('share-card-btn');
@@ -2614,9 +3323,16 @@ function initApp() {
   const activeTplBtn = document.getElementById('tpl-btn-' + appState.letterTemplate);
   if (activeTplBtn) activeTplBtn.classList.add('active');
 
+  // Bind key inputs for live bracelet preview
+  const braceletTxtEl = document.getElementById('bracelet-text-input');
+  if (braceletTxtEl) {
+    braceletTxtEl.addEventListener('input', previewBraceletBuild);
+  }
+
   setTheme(appState.theme || 'sunset');
   renderDesk();
   renderReasons();
+  renderBracelet();
   loadQuizQuestion();
 }
 
@@ -2629,6 +3345,7 @@ function loadSavedCreatorState() {
       if (!appState.memories) appState.memories = JSON.parse(JSON.stringify(defaultMemories));
       if (!appState.quiz) appState.quiz = JSON.parse(JSON.stringify(defaultQuiz));
       if (!appState.letterText) appState.letterText = templates.sweet;
+      if (!appState.bracelet) appState.bracelet = { text: 'BESTIE', theme: 'pastel', spacer: 'round' };
     } catch (e) {
       console.warn("Parsing saved state failed, resetting.");
     }
