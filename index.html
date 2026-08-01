@@ -1423,7 +1423,6 @@
 
 <!-- HERO -->
 <section class="page" id="hero">
-  <div class="hero-tag">🌸 First Sunday of August &nbsp;·&nbsp; Friendship Day</div>
   <h1 class="hero-title">Happy <em>Friendship</em><br>Day!</h1>
   <p class="hero-subtitle">To the one person who laughs at your jokes even when they're terrible. 💛</p>
   <div class="hero-hearts">💛 🌸 💜 🩵 🌼</div>
@@ -2127,17 +2126,12 @@ function setTheme(name) {
   
   // Dynamic Emoji Swapping based on Theme
   const themeMeta = {
-    sunset: { tagEmoji: '🌅', heartsEmoji: '💛 🌅 🧡 🩵 ☀️', stampEmoji: '🌅', footerEmoji: '✨', letterEmoji: '💛' },
-    lilac: { tagEmoji: '🌸', heartsEmoji: '💛 🌸 💜 🩵 🌼', stampEmoji: '🌸', footerEmoji: '🌸', letterEmoji: '🌸' },
-    midnight: { tagEmoji: '🌌', heartsEmoji: '⭐ 🌌 💜 🩵 ✨', stampEmoji: '🪐', footerEmoji: '✨', letterEmoji: '✨' },
-    boys: { tagEmoji: '⚡', heartsEmoji: '🤘 ⚡ 💙 🩵 🛹', stampEmoji: '🔥', footerEmoji: '⚡', letterEmoji: '⚡' }
+    sunset: { heartsEmoji: '💛 🌅 🧡 🩵 ☀️', stampEmoji: '🌅', footerEmoji: '✨', letterEmoji: '💛' },
+    lilac: { heartsEmoji: '💛 🌸 💜 🩵 🌼', stampEmoji: '🌸', footerEmoji: '🌸', letterEmoji: '🌸' },
+    midnight: { heartsEmoji: '⭐ 🌌 💜 🩵 ✨', stampEmoji: '🪐', footerEmoji: '✨', letterEmoji: '✨' },
+    boys: { heartsEmoji: '🤘 ⚡ 💙 🩵 🛹', stampEmoji: '🔥', footerEmoji: '⚡', letterEmoji: '⚡' }
   };
   const meta = themeMeta[name] || themeMeta.sunset;
-  
-  const heroTag = document.querySelector('.hero-tag');
-  if (heroTag) {
-    heroTag.innerHTML = `${meta.tagEmoji} First Sunday of August &nbsp;·&nbsp; Friendship Day`;
-  }
   const heroHearts = document.querySelector('.hero-hearts');
   if (heroHearts) {
     heroHearts.textContent = meta.heartsEmoji;
